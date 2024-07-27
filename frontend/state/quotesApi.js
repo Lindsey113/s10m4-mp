@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const qoutesApi = createApi({
     reducerPath: 'qoutesApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:9009/api/'}),
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:9009/api/' }),
     tagTypes: ['Quotes'],
     endpoints: build => ({
         getQuotes: build.query({
@@ -10,7 +10,7 @@ export const qoutesApi = createApi({
             providesTags: ['Quotes']
         }),
         toggleFake: build.mutation({
-            query: ({id, quote}) => ({
+            query: ({ id, quote }) => ({
                 url: `quotes/${id}`,
                 method: 'PUT',
                 body: quote
@@ -27,11 +27,11 @@ export const qoutesApi = createApi({
 
         }),
         deleteQuote: build.mutation({
-            query: quote => ({
-                url: 'quotes',
+            query: id => ({
+                url: `quotes/${id}`,
                 method: 'DELETE',
-                body: quote
-            })
+            }),
+            invalidatesTags: ['Quotes']
         })
     })
 })
